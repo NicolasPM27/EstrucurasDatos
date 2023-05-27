@@ -23,10 +23,32 @@ En este repositorio se encuentran todas las actividades relacionadas con la asig
 Los ficheros 'Taller02', 'Taller03', 'Proyecto' y 'Problema NREINAS' cuentan con un makefile para facilitar la Compilación. 
 
 ```bash
-  make 
-  ./(nombre)
+  $make 
+  $./(nombre)
 ```
->Nota: Debe tener instalado GNU make: '~$sudo apt install make'
+>Nota: Debe tener instalado GNU make: `$sudo apt install make`
+
+## Proyecto Curiosity  🤖🪐
+Desarrollo de un sistema que permita simular las actividades e interacción del vehículo "Curiosity" 
+
+### Componente 1
+Se crearon las funcionalidades necesarias para simular el movimiento del robot en un plano, a partir de comandos y elementos ingresados tanto por consola como por archivos.
+###### Los elementos y comandos se guardan en el robot a partir de listas, para ver la implementación ir a 'clases.cpp' en la clase llamada Curiosity. 
+
+### Componente 2
+Se agregaron nuevas funcionalidades para ubicar los elementos cargados en la memoria del Curiosity dentro del plano con el fin de saber su ubicación en cierto cuadrante.
+###### Los elementos se almacenan en un KDTree, para ver su implementación ir a 'clases.cpp' en la clase llamada Nodo y KDTree 
+### Componente 3
+En construcción.
+
+![](https://www.shutterstock.com/image-illustration/smiley-worker-wheelbarrow-600w-125026571.jpg)
+
+### Descripción General del contenido 
+- Los archivos '*clases.cpp*' y '*clases.h*' contienen todas las clases utilizadas para la implementación del proyecto. 
+- Los archivos '*funciones.cpp'* y '*funciones.h*' contienen todos los métodos utilizados y un menú de ayuda. 
+- El archivo '*main.cpp*' contiene la ejecución del proyecto. 
+- Los archivos '*comandos.txt*', '*elementos.txt*', '*elementosp.txt*' '*nuevo.txt*' corresponden a archivos de texto que almacenan los comandos o elementos que necesita el robot para funcionar. 
+
 ## 🛠 Lenguajes Utilizados
 <p align="left"> <a href="https://www.w3schools.com/cpp/" target="_blank"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/cplusplus/cplusplus-original.svg" alt="cplusplus" width="40" height="40"/> </a>
 
