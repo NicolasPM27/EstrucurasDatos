@@ -8,6 +8,7 @@
 #include <vector>
 #include <cstdlib>
 #include <cmath>
+#include <queue>
 using namespace std;
 
 // DECLARACIÓN DE CLASES
@@ -116,6 +117,7 @@ void Curiosity::agregarAnalisis(analisis auxAna){
   }
 
 //-----------------------Rectangulo----------------------------------------------
+int Rectangulo::contador=0;
 
   Rectangulo::Rectangulo(int x1, int x2, int y1, int y2, string t){
       xmin = x1;
@@ -123,6 +125,7 @@ void Curiosity::agregarAnalisis(analisis auxAna){
       ymin = y1;
       ymax = y2;
       tipo = t;
+      indice=contador++;
  }
   void Rectangulo::fijarXmin(int x1){
     xmin = x1;
@@ -153,6 +156,9 @@ void Curiosity::agregarAnalisis(analisis auxAna){
   }
   string Rectangulo::obtenerTipo(){
     return tipo;
+  }
+  int Rectangulo::obtenerIndice(){
+    return indice;
   }
 //Función de intersección
   bool Rectangulo::intersecta(const Rectangulo& o) {
@@ -237,6 +243,10 @@ void Curiosity::agregarAnalisis(analisis auxAna){
         }else
             return false;    
     }
+    //Función para contar la cantidad de nodos
+    int KDTree::contarNodos(){
+        return contarNodos(raiz);
+    }
     //Función pública de búsqueda
     bool KDTree::buscar(Rectangulo *rect){
       bool hayUno=false;
@@ -290,6 +300,92 @@ void Curiosity::agregarAnalisis(analisis auxAna){
             return false;;
         }
     }
+    //Función privada de contar nodos
+    int KDTree::contarNodos(Nodo *nodo){
+        if(nodo == NULL){
+            return 0;
+        }else{
+            return 1 + contarNodos(nodo->obtenerIzq()) + contarNodos(nodo->obtenerDer());
+        }
+    }
+    //Función publica de arbolAVector
+    void KDTree::arbolAVector(vector<Rectangulo*> &v){
+    arbolAVector(raiz, v);    
+    }
+    //Función privada de arbolAVector
+    void KDTree::arbolAVector(Nodo *nodo, vector<Rectangulo*> &v){
+        if(nodo == NULL){
+            return ;
+        }else{
+            arbolAVector(nodo->obtenerIzq(), v);
+            v.push_back(nodo->obtenerObstaculo());
+            arbolAVector(nodo->obtenerDer(), v);
+        }
+    }
+
+
+//------------------------------Tercer componente--------------------------------------------
+Grafo::Grafo(vector<Arista> const &aristas, int n){
+  //cambiar el tamaño de la lista de adyacencia para que se ajuste al número de vértices
+  listaAdyacencia.resize(n);
+  //agregar aristas al grafo no dirigido
+  for (auto &arista: aristas){
+    int inicio = arista.inicio->obtenerIndice();
+    int dest =arista.dest->obtenerIndice();
+    double peso = arista.peso;
+    //Insertar al final de la lista
+    //cout<<"inicio: "<<arista.inicio->obtenerTipo()<<inicio<<"dest: "<<dest<<"peso: "<<peso<<endl;
+    listaAdyacencia[inicio].push_back(make_pair(*(arista.dest), peso));
+  }
+}
+//Definir infinito como un valor grande
+const double INF = 1e15;
+
+  void Grafo::rutaMasLarga(Grafo const &Grafo, int n){
+  //Algoritmo para hallar la ruta más larga entre todos los nodos en todo el grafo
+  //Se crea un vector de distancias y un vector de visitados
+  vector<double> distancia(n, INF);
+  vector<bool> visitado(n, false);
+  //Se crea una cola de prioridad para almacenar los nodos visitados
+  priority_queue< Pair, vector <Pair> , greater<Pair> > pq;
+  //Se inserta el nodo inicial con distancia 0
+  pq.push(make_pair(0, 0));
+  distancia[0] = 0;
+  //Se itera hasta que la cola de prioridad esté vacía
+  while (!pq.empty()){
+    //Se extrae el nodo con menor distancia
+    int u = pq.top().second;
+    pq.pop();
+    //Se marca el nodo como visitado
+    visitado[u] = true;
+    //Se itera sobre los nodos adyacentes
+    for (Pair v: listaAdyacencia[u]){
+      //Se obtiene el índice del nodo adyacente
+      int indice = v.first.obtenerIndice();
+      //Se obtiene el peso de la arista
+      double peso = v.second;
+      //Si el nodo no ha sido visitado y la distancia es menor a la actual
+      if (!visitado[indice] && distancia[indice] > distancia[u] + peso){
+        //Se actualiza la distancia
+        distancia[indice] = distancia[u] + peso;
+        //Se inserta el nodo en la cola de prioridad
+        pq.push(make_pair(distancia[indice], indice));
+      }
+    }
+  }
+  //Se imprime la distancia más larga
+  cout<<"La distancia más larga es: "<<distancia[n-1]<<endl;
+}
+
+  void Grafo::imprimirGrafo(Grafo const &grafo, int n){//Función que imprime el grafo
+  for (int i = 0; i < n; i++){
+    cout<<"Nodo "<<i<<":\n";
+    for (Pair v: grafo.listaAdyacencia[i]){
+     cout<<"("<< v.first.obtenerIndice() <<") ," << v.first.obtenerTipo() << v.second<< ")\t";
+    }
+    cout << endl;
+  }
+}   
 
 
 

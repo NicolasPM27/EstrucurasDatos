@@ -25,4 +25,7 @@ bool guardar(Curiosity &robot, string tipoA, string nombre);
 bool simularMov(string x, string y, Curiosity &robot);
 bool ubicar_elementos(Curiosity &robot,KDTree &arbol);
 bool en_cuadrante(Curiosity &robot, KDTree &arbol, string x1, string x2, string y1, string y2);
+//Tercer componente
+bool crearMapa(Curiosity &robot, KDTree &arbol, string coeficiente);
+double calcularPeso(Rectangulo inicio, Rectangulo dest);
 #endif

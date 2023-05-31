@@ -64,6 +64,8 @@ int main() {
           cargar_comandos(robot,tokens[1]);
           } else if (tokens[0] == "cargar_elementos") {
           cargar_elementos(robot,tokens[1]);
+          }else if(tokens[0]=="crear_mapa"){
+            crearMapa(robot,arbol,tokens[1]);
           }
         }else if(tokens.size()==3){
           if (tokens[0] == "guardar"){
@@ -104,5 +106,4 @@ int main() {
  
   return 0;
 }
-
 

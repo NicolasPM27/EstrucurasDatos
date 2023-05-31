@@ -107,6 +107,8 @@ void agregarAnalisis(analisis auxAna);
 //Clase Rectangulo, utilizada para representar cada elemento y cuadrante
 class Rectangulo{
     private:
+    int indice;//Indice del elemento
+    static int contador;//Contador de elementos
     int xmin, xmax, ymin, ymax;
     string tipo;
     public:
@@ -123,6 +125,7 @@ class Rectangulo{
     int obtenerYmin();
     int obtenerYmax();
     string obtenerTipo();
+    int obtenerIndice();
     bool intersecta(const Rectangulo& o);//Función que determina si dos rectángulos se intersectan
     bool contiene(const Rectangulo& o);//Función que determina si un rectángulo contiene a otro
 };
@@ -154,6 +157,8 @@ class KDTree{
     Nodo*raiz;
     bool insertar(Rectangulo *o, Nodo *&nodo, bool eje);//Función recursiva que inserta un rectángulo en el KDTree
     bool buscar(Nodo *nodo, Rectangulo *rect, bool &hayUno);//Función recursiva que busca un rectángulo dentro de otro rectangulo
+    int contarNodos(Nodo *nodo);//Función recursiva que cuenta los nodos del KDTree
+    void arbolAVector(Nodo *nodo, vector<Rectangulo*> &v);//Función recursiva que convierte el KDTree en una lista de rectángulos
     public:
     KDTree();//Constructor
     ~KDTree();//Destructor
@@ -162,6 +167,28 @@ class KDTree{
     bool insertar(Rectangulo *o);//Función pública que llama a la función recursiva de insertar
     bool buscar(Rectangulo *rect);//Función pública que llama a la función recursiva de buscar
     bool vacio();//Función que determina si el KDTree está vacío
+    int contarNodos();//Función que cuenta los nodos del KDTree
+    void arbolAVector(vector<Rectangulo*> &v);//Función que convierte el KDTree en un vector de rectángulos
+
+};
+//------------------Tercer componente--------------------
+
+//Clase que representa una arista
+class Arista{
+  public:
+Rectangulo *inicio,*dest;
+double peso;
+};
+
+typedef pair<Rectangulo,double> Pair;//Pair que representa un nodo y su peso
+
+//Clase que representa un grafo
+class Grafo{
+  public:
+  vector<vector<Pair>> listaAdyacencia;//Vector de vectores de pares, que representa la lista de adyacencia del grafo
+  Grafo(vector<Arista> const &aristas, int n);//Constructor
+  void rutaMasLarga(Grafo const &grafo, int n);//Función que implementa el algoritmo de Dijkstra
+  void imprimirGrafo(Grafo const &grafo, int n);//Función que imprime el grafo
 };
 
 #endif
