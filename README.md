@@ -38,8 +38,6 @@ Se crearon las funcionalidades necesarias para simular el movimiento del robot e
 ### Componente 2
 Se agregaron nuevas funcionalidades para ubicar los elementos cargados en la memoria del Curiosity dentro del plano con el fin de saber su ubicación en cierto cuadrante.
 ###### Los elementos se almacenan en un KDTree, para ver su implementación ir a 'clases.cpp' en la clase llamada Nodo y KDTree 
-### Componente 3
-En construcción.
 
 ![](https://www.shutterstock.com/image-illustration/smiley-worker-wheelbarrow-600w-125026571.jpg)
 
